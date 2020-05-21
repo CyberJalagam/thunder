@@ -178,10 +178,14 @@ static void scan_and_kill(unsigned long pages_needed)
 	read_lock(&tasklist_lock);
 	for (i = 0; i < ARRAY_SIZE(adj_prio); i++) {
 		pages_found += find_victims(&nr_victims, adj_prio[i]);
+	/* Hold an RCU read lock while traversing the global process list */
+	rcu_read_lock();
+	for (i = 1; i < ARRAY_SIZE(adjs); i++) {
+		pages_found += find_victims(&nr_victims, adjs[i], adjs[i - 1]);
 		if (pages_found >= pages_needed || nr_victims == MAX_VICTIMS)
 			break;
 	}
-	read_unlock(&tasklist_lock);
+	rcu_read_unlock();
 
 	/* Pretty unlikely but it can happen */
 	if (unlikely(!nr_victims)) {
