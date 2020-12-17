@@ -31,8 +31,8 @@ export ARCH=arm64
 export SUBARCH=arm64
 export CROSS_COMPILE
 export CROSS_COMPILE_ARM32
-export KBUILD_BUILD_USER=cosmo
-export KBUILD_BUILD_HOST=freak001
+export KBUILD_BUILD_USER=Lokesh
+export KBUILD_BUILD_HOST=L.V. Industries
 
 # Main script
 while true; do
