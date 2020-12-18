@@ -1061,6 +1061,7 @@ endif
 ifdef CONFIG_GDB_SCRIPTS
 	$(Q)ln -fsn `cd $(srctree) && /bin/pwd`/scripts/gdb/vmlinux-gdb.py
 endif
+	+$(call if_changed,link-vmlinux)
 
 # The actual objects are generated when descending,
 # make sure no implicit rule kicks in
